@@ -1,0 +1,118 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+
+}
+
+html, body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+body {
+    position: relative;
+    font-family: "微软雅黑",Arial, "宋体", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: none;
+}
+
+ul {
+    list-style: none;
+}
+
+hr {
+    border-color: #ccc;
+    border-bottom-width: 0px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+iframe {
+    border: 0px;
+    display: block;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.border-box {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+}
+
+.content-box {
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -o-box-sizing: content-box;
+    -ms-box-sizing: border-box;
+}
+
+.user-select-none,
+.user-select-none * {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: 100%;
+}
+
+/* 清浮动 */
+.clearfix {
+    zoom: 1;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* 图标 */
+.icon {
+    display: inline-block;
+    font-style: normal;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: middle;
+}
+
+.icon-plus {
+    display: inline-block;
+    font-style: normal;
+    width: 80px;
+    height: 80px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: top;
+}
+
+.icon-plus-plus {
+    display: inline-block;
+    font-style: normal;
+    width: 92px;
+    height: 92px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: middle;
+}
