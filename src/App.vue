@@ -13,10 +13,9 @@
           <menu-ly></menu-ly>
         </el-aside>
         <el-container>
-          <el-container>
-            <el-header>Header</el-header>
-            <el-main>Main</el-main>
-          </el-container>
+          <el-main>
+            <router-view/>
+          </el-main>
           <el-footer>
             深圳市茁壮网络股份有限公司 Version 2.0.1 IPANEL.TV INC.,ALL RIGHTS RESERVED
           </el-footer>

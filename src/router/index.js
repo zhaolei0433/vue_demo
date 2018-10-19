@@ -13,6 +13,7 @@ import Page404 from '../components/404'
 import Login from  '../components/login'
 import PlaceManager from '../components/menu/placeManager'
 import Area from '../components/menu/placeManager/areaManager'
+import Place from '../components/menu/placeManager/placeManager'
 
 Vue.use(Router)
 
@@ -92,6 +93,12 @@ export default new Router({
           name: '区域管理',
           class: 'my-icon-blog-shouye',
           component: Area
+        },
+        {
+          path: '/menu/place/place',
+          name: '会场管理',
+          class: 'my-icon-blog-shouye',
+          component: Place
         }
       ]
     },

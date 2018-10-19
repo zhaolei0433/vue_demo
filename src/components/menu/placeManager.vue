@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>groupsManager</h3>
+<!--    <h3>groupsManager</h3>-->
     <router-view/>
   </div>
 </template>

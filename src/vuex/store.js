@@ -3,13 +3,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-
-function storeSessionStore (state) {
+/*登录状态*/
+function loginSessionStore (state) {
   window.sessionStorage.setItem("loginStore", JSON.stringify(state));
 }
 
-
-/*登录状态*/
 const loginStore = {
   isLogin: false, //初始默认为未登录
   LoginUser: {
@@ -25,11 +23,11 @@ export default new Vuex.Store({
   mutations:{
     logged (state){
       state.loginStore.isLogin = true;
-      storeSessionStore(state)
+      loginSessionStore(state)
     },
     logout(state){
       state.loginStore.isLogin = false;
-      storeSessionStore(state)
+      loginSessionStore(state)
     }
   }
 })
