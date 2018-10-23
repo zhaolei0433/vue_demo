@@ -6,11 +6,15 @@
         <el-row>
           <el-button type="primary" v-on:click="addAreaDialog">添加区域</el-button>
           <el-button type="primary" v-on:click="deleteArea">删除区域</el-button>
-          <el-button type="primary" v-on:click="updateArea">修改区域</el-button>
+          <el-button type="primary" v-on:click="updateAreaDialog">修改区域</el-button>
           <add-area-ly :parent-id=this.parentId
                        :dialog-form-visible=this.dialogFormVisible
                        @event="dialogChange"
                        @successAdd="addAreaSuccess"/>
+          <update-area-ly :node-id="this.nodeId"
+                          :dialog-update-visible="this.dialogUpdateVisible"
+                          @updateEvent="updateAreaCancel"
+                          @successUpdate="updateAreaSuccess"/>
         </el-row>
       </el-header>
       <el-main>
@@ -32,18 +36,22 @@
 </template>
 
 <script>
-  import {areaTree} from "../../../api/api";
-  import AddAreaLy from '../placeManager/areaManager/addArea'
+  import {areaTree, deleteArea} from "../../../api/api";
+  import AddAreaLy from '../placeManager/areaManager/addArea';
+  import UpdateAreaLy from '../placeManager/areaManager/updateArea';
 
   export default {
     name: "areaManager",
     components: {
+      UpdateAreaLy,
       AddAreaLy,
     },
     data() {
       return {
         dialogFormVisible: false,
+        dialogUpdateVisible: false,
         parentId: 0,
+        nodeId:0,
         treeAreaInfo: [],
         defaultProps: {
           id: 'id',
@@ -92,32 +100,63 @@
             message: "请选择区域进行删除"
           });
         } else {
-          for (let i = 0; i < this.$refs.areaTree.getCheckedNodes().length; i++){
-            let node = this.$refs.areaTree.getCheckedNodes()[i];
-            //服务器删除
-            //界面删除
-            console.log(JSON.stringify(node));
-            this.jsonDelete(this.treeAreaInfo,node);
+          let nodes = this.$refs.areaTree.getCheckedNodes();
+          for (let i = 0; i < nodes.length; i++){
+            deleteArea(nodes[i].id).then( res => {
+              if (res.data.code !== 0) {
+                this.$message({
+                  type: 'error',
+                  message: '删除失败' + res.data.msg
+                });
+              } else {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功'
+                });
+                //设置成功状态
+                this.jsonDelete(this.treeAreaInfo,nodes[i]);
+              }
+            }).catch(err => {
+              this.$message({
+                type: 'error',
+                message: '删除失败' + err
+              })
+            });
           }
         }
       },
-      jsonDelete(jsonTree,areaInfo){
-        for (let i = 0; i < jsonTree.length; i++) {
-          if(jsonTree[i].children.length !== null){
-            for (let j = 0; j < jsonTree[i].children.length; j++){
-              if (jsonTree[i].children[j].id === areaInfo.id){
-                jsonTree[i].children.splice(j,1);
+      jsonDelete(jsonTree,areaInfo) {
+        for (let i = 0; i < jsonTree.length; i++ ) {
+          if (jsonTree[i].children !== null && jsonTree[i].children.length > 0){
+            for (let j = 0; j < jsonTree[i].children.length; j++) {
+              if (jsonTree[i].children[j].id === areaInfo.id) {
+                jsonTree[i].children.splice(j, 1);
               }
             }
           }
-          if (jsonTree[i].children && jsonTree[i].children.length !== null && jsonTree[i].children.length > 0) {
-            this.jsonDelete(jsonTree[i].children,areaInfo);
+          if (jsonTree[i].children !== null && jsonTree[i].children.length > 0) {
+            this.jsonDelete(jsonTree[i].children, areaInfo);
           }
         }
       },
-      updateArea() {
-
+      updateAreaDialog(){
+        if (this.treeAreaInfo !== null && this.$refs.areaTree.getCheckedNodes().length !== 1) {
+          this.$message({
+            type: 'warning',
+            message: "请选择一个区域进行修改"
+          });
+        } else {
+          this.dialogUpdateVisible = true;
+          this.nodeId = this.$refs.areaTree.getCheckedNodes()[0].id;
+        }
       },
+      updateAreaCancel(){
+        this.dialogUpdateVisible = false;
+      },
+      updateAreaSuccess(id, areaName){
+        console.log("需要修改的树id"+id);
+        console.log("需要修改成的区域名称"+areaName);
+      }
     },
     created() {
       let RootPlaceId = 1;
