@@ -154,9 +154,24 @@
         this.dialogUpdateVisible = false;
       },
       updateAreaSuccess(id, areaName){
-        console.log("需要修改的树id"+id);
-        console.log("需要修改成的区域名称"+areaName);
-      }
+        let areaInfo = {"id": id, "label": areaName, "children": null};
+        this.jsonUpdate(this.treeAreaInfo,areaInfo);
+      },
+      jsonUpdate(jsonTree,areaInfo){
+        for (let i = 0; i < jsonTree.length; i++ ) {
+          if (jsonTree[i].children !== null && jsonTree[i].children.length > 0){
+            for (let j = 0; j < jsonTree[i].children.length; j++) {
+              if (jsonTree[i].children[j].id === areaInfo.id) {
+                areaInfo.children = jsonTree[i].children[j].children;
+                jsonTree[i].children.splice(j, 1, areaInfo);
+              }
+            }
+          }
+          if (jsonTree[i].children !== null && jsonTree[i].children.length > 0) {
+            this.jsonUpdate(jsonTree[i].children, areaInfo);
+          }
+        }
+      },
     },
     created() {
       let RootPlaceId = 1;
@@ -180,7 +195,6 @@
     },
   };
 </script>
-
 
 <style scoped>
 
