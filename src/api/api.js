@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let base_url = 'http://119.29.175.180:8001';
+let base_url = 'http://192.168.20.35:8001';
 /*登录url*/
 let manageInfoLogin_url = '/managerInfo/login';
 /*区域url*/
@@ -30,6 +30,7 @@ export const deleteArea = (areaId) => {
 export const updateArea = (areaId,updateAreaReq) => {
   return axios.put(`${base_url}${area_updateArea_url}${areaId}`, updateAreaReq)
 };
+
 //post请求的另一种写法
 /*export const LoginUser = data =>{
   return axios({

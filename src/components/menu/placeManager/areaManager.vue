@@ -51,7 +51,7 @@
         dialogFormVisible: false,
         dialogUpdateVisible: false,
         parentId: 0,
-        nodeId:0,
+        nodeId: 0,
         treeAreaInfo: [],
         defaultProps: {
           id: 'id',
